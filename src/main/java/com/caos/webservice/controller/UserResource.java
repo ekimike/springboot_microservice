@@ -3,8 +3,6 @@ package com.caos.webservice.controller;
 import java.net.URI;
 import java.util.List;
 
-import javax.xml.ws.Response;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.caos.webservice.bean.User;
 import com.caos.webservice.dao.UserDaoService;
+import com.caos.webservice.exception.UserNotFoundException;
 
 @RestController
 public class UserResource {
@@ -40,7 +39,12 @@ public class UserResource {
 	
 	@GetMapping("/users/{id}")
 	public User retrieveUser(@PathVariable int id) {
-		return service.findOne(id);
+		User findOne = service.findOne(id);
+		
+		if(findOne==null)
+			throw new UserNotFoundException("userId-"+id);
+		
+		return findOne;
 	}
 	
 }

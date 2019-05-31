@@ -23,3 +23,13 @@ sts: Spring Starter Project
 
 dependencies: web, devtools, jpa & h2
 
+CREATING BASIC CRUD
+===================
+
+Using a simple bean we play with CRUD. Bear in mind that we're using:
+
+* ResponseEntity<T> for @PostMapping
+
+* throw personalized exception extending RuntimeException & @ResponseStatus(HttpStatus.NOT_FOUND)
+
+* throw an exception with few details for all controllers: @ControllerAdvice & @RestController extending ResponseEntityExceptionHandler
